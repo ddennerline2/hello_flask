@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-flask-manual-v2
+  labels:
+    creation_method: manual
+    env: prod
+spec:
+  containers:
+  - image: hello-flask:v4
+    name: hello-flask
+    ports:
+    - containerPort: 5000
+      protocol: TCP

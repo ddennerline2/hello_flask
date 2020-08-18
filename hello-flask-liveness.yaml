@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-flask-liveness
+spec:
+  containers:
+  - image: hello-flask:v5
+    name: hello-flask
+    ports:
+    - containerPort: 5000
+      protocol: TCP
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 5000

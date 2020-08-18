@@ -1,10 +1,11 @@
 import time
 
 import redis
-from flask import Flask
+from flask import Flask, abort, jsonify
 
 app = Flask(__name__)
 cache = redis.Redis(host='redis', port=6379)
+fail_count = 1
 
 
 def get_hit_count():
@@ -21,5 +22,16 @@ def get_hit_count():
 
 @app.route('/')
 def hello():
-    count = get_hit_count()
+    # count = get_hit_count()
+    count = 1
     return 'Hello World! I have been seen {} times.\n'.format(count)
+
+
+@app.route('/health')
+def health():
+    global fail_count
+    fail_count += 1
+    if fail_count > 5:
+        abort(500, description="Resource not found")
+    result = {"success": True}
+    return jsonify(result)
