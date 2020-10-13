@@ -13,6 +13,7 @@ spec:
     spec:
       containers:
         - name: hello-flask
-          image: hello-flask:v4
+          image: hello-flask:v6
           ports:
-          - containerPort: 5000
+          - name: http
+            containerPort: 5000
